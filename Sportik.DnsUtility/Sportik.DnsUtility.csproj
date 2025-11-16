@@ -6,6 +6,7 @@
         <ImplicitUsings>enable</ImplicitUsings>
         <Nullable>enable</Nullable>
         <ApplicationIcon>Assets\Logo\Logo.ico</ApplicationIcon>
+        <ApplicationManifest>app.manifest</ApplicationManifest>
     </PropertyGroup>
 
     <ItemGroup>
@@ -21,6 +22,7 @@
     <PropertyGroup>
         <CertificateThumbprint>3E4D0540BFD18A3C8DB8998C7E2E37374C8B6E40</CertificateThumbprint>
         <SignToolPath>C:\Program Files (x86)\Windows Kits\10\bin\10.0.19041.0\x64\signtool.exe</SignToolPath>
+        <ApplicationManifest>app.manifest</ApplicationManifest>
     </PropertyGroup>
 
     <Target Name="SignApp" AfterTargets="Publish" Condition="'$(CertificateThumbprint)' != ''">
