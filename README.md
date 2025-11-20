@@ -1,6 +1,6 @@
 ## Overview
 
-Sportik DnsUtility is a console application to configure Dns mapping for Sportik Desktop application.
+A console application for configuring DNS mappings for the Sportik Desktop application.
 
 ## Release installation
 
