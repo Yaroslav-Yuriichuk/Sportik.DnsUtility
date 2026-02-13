@@ -25,27 +25,35 @@ ServiceProvider serviceProvider = services.BuildServiceProvider();
 
 try
 {
-    IIpAddressArgumentService ipAddressArgumentService = serviceProvider.GetRequiredService<IIpAddressArgumentService>();
+    IArgumentService argumentService = serviceProvider.GetRequiredService<IArgumentService>();
     IHostsFileService hostsFileService = serviceProvider.GetRequiredService<IHostsFileService>();
 
-    if (!ipAddressArgumentService.TryParseIpAddress(args, out IPAddress? ipAddress))
+    if (!argumentService.TryParseIpAddress(args, out IPAddress? ipAddress))
     {
         Console.WriteLine("Error: Unable to parse IP address.");
         return 0;
     }
 
-    string hostName = configuration["Dns:HostName"] ?? throw new ArgumentNullException(nameof(configuration), "Host name configuration is missing.");
-    hostsFileService.UpdateHostEntry(ipAddress!, hostName);
+    if (!argumentService.TryParseHostName(args, out string? hostName))
+    {
+        Console.WriteLine("Error: Unable to parse host name.");
+        return 0;
+    }
+
+    hostsFileService.UpdateHostEntry(ipAddress!, hostName!);
 
     Console.WriteLine($"Successfully updated Dns configuration for {ipAddress}.");
+    Console.WriteLine("Press any key to exit.");
 }
 catch (HostsFileAccessException)
 {
     Console.WriteLine("Please run this program as Administrator.");
+    Console.WriteLine("Press any key to exit.");
 }
 catch (Exception e)
 {
     Console.WriteLine($"Error: {e.Message}");
+    Console.WriteLine("Press any key to exit.");
 }
 
 Console.ReadKey();
